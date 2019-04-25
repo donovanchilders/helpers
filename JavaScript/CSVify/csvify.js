@@ -39,15 +39,12 @@ function csvify(selector, dataMap, dataReplacementCallback) {
                         data = replaceSpecialChars(node.innerText);
                     }
                     innerItem.push(data);
-                    console.log('has selector');
                 } else if (dmItem.selector === "" && typeof (dmItem.callback) === 'function') {
                     // If no selector but a callback exists
                     innerItem.push(dmItem.callback(" ", node));
-                    console.log('no selector but callback');
                 } else {
                     // Default if no selector and no callback
                     innerItem.push(" ");
-                    console.log('default');
                 }
             })
 
@@ -83,7 +80,6 @@ function csvify(selector, dataMap, dataReplacementCallback) {
             .replace(/\"/gi, '\\"');
 
         if (text.indexOf('"') > -1) {
-            console.log('match');
             text = '"' + text + '"';
         }
         return text;
