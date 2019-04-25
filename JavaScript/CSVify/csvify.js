@@ -5,8 +5,10 @@
  * @param {string} selector The CSS selector of the container
  * @param {object} dataMap Object map of Columns, Selectors and an optional replacement callback
  * @param {function} dataReplacementCallback Callback for global field replacements
+ * @param {function} dataHeaderCallback Callback for rendering a header above the CSV data
+ * @param {function} dataFooterCallback Callback for rendering a footer below the CSV data
  */
-function csvify(selector, dataMap, dataReplacementCallback) {
+function csvify(selector, dataMap, dataReplacementCallback, dataHeaderCallback, dataFooterCallback) {
     var _elements = null;
     
     /**
@@ -61,12 +63,22 @@ function csvify(selector, dataMap, dataReplacementCallback) {
         var content = [];
         var header = [];
         // Create header row
-        dataMap.forEach(function(item) {
-            header.push(item.column);
-        });
+        if (typeof dataHeaderCallback === 'function') {
+            header.push(dataHeaderCallback());
+        } else {
+            dataMap.forEach(function(item) {
+                header.push(item.column);
+            });
+        }
 
         content.push(header.join(", "));
         content.push(data.join("\n"));
+        
+        // One last final callback before we return output
+        if (typeof dataFooterCallback === 'function') {
+            content.push(dataFooterCallback());
+        }
+
         return content.join("\n");
     }
 
