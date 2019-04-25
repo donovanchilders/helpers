@@ -24,8 +24,8 @@ function csvify(selector, dataMap, dataReplacementCallback) {
         _elements.forEach(function(item) {
             var innerItem = [];
             dataMap.forEach(function(dmItem) {
-                
                 if (dmItem.selector !== "") {
+                    // If selector exists
                     var node = item.querySelector(dmItem.selector),
                         data = "";
                     if (typeof (dmItem.callback) === 'function') {
@@ -39,8 +39,15 @@ function csvify(selector, dataMap, dataReplacementCallback) {
                         data = replaceSpecialChars(node.innerText);
                     }
                     innerItem.push(data);
+                    console.log('has selector');
+                } else if (dmItem.selector === "" && typeof (dmItem.callback) === 'function') {
+                    // If no selector but a callback exists
+                    innerItem.push(dmItem.callback(" ", node));
+                    console.log('no selector but callback');
                 } else {
+                    // Default if no selector and no callback
                     innerItem.push(" ");
+                    console.log('default');
                 }
             })
 
