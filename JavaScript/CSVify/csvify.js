@@ -1,12 +1,24 @@
 "use strict";
-
+/**
+ * CSVify Object
+ * 
+ * @param {string} selector The CSS selector of the container
+ * @param {object} dataMap Object map of Columns, Selectors and an optional replacement callback
+ * @param {function} dataReplacementCallback Callback for global field replacements
+ */
 function csvify(selector, dataMap, dataReplacementCallback) {
     var _elements = null;
     
+    /**
+     * Get Elements method: Get the selector's DOM nodes
+     */
     function getElements() {
         _elements = document.querySelectorAll(selector);
     }
 
+    /**
+     * Create the map of content
+     */
     function createMap() {
         var items = [];
         _elements.forEach(function(item) {
@@ -37,6 +49,10 @@ function csvify(selector, dataMap, dataReplacementCallback) {
         return items;
     }
 
+    /**
+     * Create the CSV string
+     * @param {array} data The array of parsed data
+     */
     function createCSV(data) {
         var content = [];
         var header = [];
@@ -50,6 +66,10 @@ function csvify(selector, dataMap, dataReplacementCallback) {
         return content.join("\n");
     }
 
+    /**
+     * Replace special characters
+     * @param {string} text The text to replace special characters
+     */
     function replaceSpecialChars(text) {
         text = text
             .replace(/\,/gi, "\\,")
@@ -62,6 +82,9 @@ function csvify(selector, dataMap, dataReplacementCallback) {
         return text;
     }
 
+    /**
+     * Main init function to start work
+     */
     function init() {
         getElements();
         return createCSV(createMap());
