@@ -30,7 +30,7 @@ Product 2, $14.99
 
 ## Using the object's callback functions
 
-You can pass the optional parameters as a callback function like this:
+You can pass the optional parameters as callback functions like this:
 
 ```javascript
 let filterCb = function(data) {
@@ -43,13 +43,13 @@ let headerCb = function() {
     return "Name, Full Price";
 }
 
-let footerCb = function() {
-    return "---------------";
+let footerCb = function(total) {
+    return "Total item(s): " + total;
 }
 
 let csv = csvify('.products', dataMap, filterCb, headerCb, footerCb);
 ```
-The script will automatically replace commas and double-quotes if you do not pass a dataReplacementCallback() callback function. However, that default behavior will be bypassed if you pass your own method, so be sure to handle those characters as you needs.
+The script will automatically replace commas and double-quotes if you do not pass a dataReplacementCallback() callback function (shown as `filterCb` here). However, that default behavior will be bypassed if you pass your own method, so be sure to handle those characters as you needs.
 
 ## Data field callback
 You can optionally pass a callback method per field in your dataMap like this:
