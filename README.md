@@ -1,0 +1,3 @@
+# Helpers
+
+So, here's a repository with some of the simple tools I use to do stuff around the office. I don't use these in a production system, but rather to do mundane tasks like getting content, checking if things exist, etc...
