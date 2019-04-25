@@ -76,7 +76,7 @@ function csvify(selector, dataMap, dataReplacementCallback, dataHeaderCallback, 
         
         // One last final callback before we return output
         if (typeof dataFooterCallback === 'function') {
-            content.push(dataFooterCallback());
+            content.push(dataFooterCallback(data.length));
         }
 
         return content.join("\n");
