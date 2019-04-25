@@ -12,17 +12,19 @@ function csvify(selector, dataMap, dataReplacementCallback) {
         _elements.forEach(function(item) {
             var innerItem = [];
             dataMap.forEach(function(dmItem) {
+                
                 if (dmItem.selector !== "") {
-                    var data = item.querySelector(dmItem.selector).innerText;
+                    var node = item.querySelector(dmItem.selector),
+                        data = "";
                     if (typeof (dmItem.callback) === 'function') {
                         // Individual field callback
-                        data = dmItem.callback(data);
+                        data = dmItem.callback(node.innerText, node);
                     } else if (typeof dataReplacementCallback === 'function') {
                         // Overall replacement callback
-                        data = dataReplacementCallback(data);
+                        data = dataReplacementCallback(node.innerText, node);
                     } else {
                         // Default replace characters
-                        data = replaceSpecialChars(data);
+                        data = replaceSpecialChars(node.innerText);
                     }
                     innerItem.push(data);
                 } else {
