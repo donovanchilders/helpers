@@ -39,9 +39,10 @@ function csvify(selector, dataMap, dataReplacementCallback) {
         var content = [];
         var header = [];
         // Create header row
-        for (var dm in dataMap) {
-            header.push(dm);
-        }
+        dataMap.forEach(function(item) {
+            header.push(item.column);
+        });
+
         content.push(header.join(", "));
         content.push(data.join("\n"));
         return content.join("\n");
