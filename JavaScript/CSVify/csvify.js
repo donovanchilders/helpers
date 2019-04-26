@@ -9,7 +9,7 @@
  * @param {function} dataFooterCallback Callback for rendering a footer below the CSV data
  */
 function csvify(selector, dataMap, dataReplacementCallback, dataHeaderCallback, dataFooterCallback) {
-    var _elements = null;
+    let _elements = null;
     
     /**
      * Get Elements method: Get the selector's DOM nodes
@@ -22,13 +22,13 @@ function csvify(selector, dataMap, dataReplacementCallback, dataHeaderCallback, 
      * Create the map of content
      */
     function createMap() {
-        var items = [];
+        let items = [];
         _elements.forEach(function(item) {
-            var innerItem = [];
+            let innerItem = [];
             dataMap.forEach(function(dmItem) {
                 if (dmItem.selector !== "") {
                     // If selector exists
-                    var node = item.querySelector(dmItem.selector),
+                    let node = item.querySelector(dmItem.selector),
                         data = "";
                     if (typeof (dmItem.callback) === 'function') {
                         // Individual field callback
@@ -43,7 +43,7 @@ function csvify(selector, dataMap, dataReplacementCallback, dataHeaderCallback, 
                     innerItem.push(data);
                 } else if (dmItem.selector === "" && typeof (dmItem.callback) === 'function') {
                     // If no selector but a callback exists
-                    innerItem.push(dmItem.callback(" ", node));
+                    innerItem.push(dmItem.callback(" "));
                 } else {
                     // Default if no selector and no callback
                     innerItem.push(" ");
@@ -60,8 +60,8 @@ function csvify(selector, dataMap, dataReplacementCallback, dataHeaderCallback, 
      * @param {array} data The array of parsed data
      */
     function createCSV(data) {
-        var content = [];
-        var header = [];
+        let content = [];
+        let header = [];
         // Create header row
         if (typeof dataHeaderCallback === 'function') {
             header.push(dataHeaderCallback());
